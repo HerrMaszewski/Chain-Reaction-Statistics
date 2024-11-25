@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Competition Results</title>
+</head>
+<body>
+
+<h1>Competition Results</h1>
+
+{% if competition_data %}
+    <h2>{{ competition_data.Name }}</h2>
+    <p><strong>Date:</strong> {{ competition_data.Date }}</p>
+    <p><strong>Time:</strong> {{ competition_data.Time }}</p>
+    <p><strong>Course Name:</strong> {{ competition_data.CourseName }}</p>
+    <p><strong>Course ID:</strong> {{ competition_data.CourseID }}</p>
+    <!-- inne informacje o zawodach -->
+
+    {% if competition_data.Tracks %}
+        <h3>Course Tracks:</h3>
+        <ul>
+            {% for track in competition_data.Tracks %}
+                <li>
+                    <strong>Track Number:</strong> {{ track.Number }}<br>
+                    <strong>Par:</strong> {{ track.Par }}<br>
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if competition_data.Results %}
+        <h3>Results:</h3>
+        <ul>
+            {% for result in competition_data.Results %}
+                <li>
+                    <strong>User ID:</strong> {{ result.UserID }}<br>
+                    <strong>Name:</strong> {{ result.Name }}<br>
+                    <strong>Class/Division:</strong> {{ result.ClassName }}<br>
+                    <strong>Country Code:</strong> {{ result.CountryCode }}<br>
+                    <strong>Group:</strong> {{ result.Group }}<br>
+                    <h4>Player Results:</h4>
+                    <ul>
+                        {% for player_result in result.PlayerResults %}
+                            <li>
+                                <strong>Result:</strong> {{ player_result.Result }}<br>
+                                <strong>Diff:</strong> {{ player_result.Diff }}<br>
+                                <strong>OB:</strong> {{ player_result.OB }}<br>
+                            </li>
+                            <br>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% else %}
+    <p>Competition not found.</p>
+{% endif %}
+
+</body>
+</html>

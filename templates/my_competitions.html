@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Competitions</title>
+</head>
+<body>
+
+<h1>My Competitions</h1>
+
+{% if user.is_authenticated %}
+    {% if competitions_info %}
+        <ul>
+            {% for competition in competitions_info %}
+                <li>
+                    <strong>Competition ID:</strong> {{ competition.competition_id }}<br>
+                    <strong>Name:</strong> {{ competition.name }}<br>
+                    <strong>Date:</strong> {{ competition.date }}<br>
+                    <strong>Time:</strong> {{ competition.time }}<br>
+                    <strong>Course Name:</strong> {{ competition.course_name }}<br>
+                    <strong>Course ID:</strong> {{ competition.course_id }}<br>
+                    <a href="{% url 'competition-results' competition_id=competition.competition_id %}">View Results</a><br>
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No competitions found.</p>
+    {% endif %}
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+{% else %}
+    <p>Please <a href="{% url 'login' %}">login</a> to view your competitions.</p>
+{% endif %}
+
+</body>
+</html>
